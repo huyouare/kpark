@@ -1,9 +1,17 @@
 require 'rubygems'
 require 'json'
-require 'whenever'
+require 'net/http'
 
-my_weekday = ARGV[0]
-my_hour = ARGV[1]
+t = Time.now
+wday = t.wday
+
+days = { 0 => "Sunday" , 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday" }
+
+puts t.hour
+puts days[t.wday]
+
+my_hour = "10"
+my_weekday = "Monday"
 
 puts Dir.pwd
 
@@ -17,9 +25,15 @@ json['root']['weekday'].each do |weekday|
 			if hour['-name']==my_hour
 				puts hour['-name']
 
-				hour['query'].each do |query|
-					puts query
-				end
+				# hour['query'].each do |query|
+				# 	print query
+				# end
+				query = hour['query'].first
+				web_request = 'http://davami.com/kpark/runquery.php?query=' + query
+				puts web_request
+				uri = URI(web_request)
+				Net::HTTP.get(uri)
+
 			end
 		end
 
