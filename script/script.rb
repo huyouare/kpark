@@ -14,8 +14,8 @@ days = { 0 => "Sunday" , 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "
 puts "This hour: " + t.hour.to_s
 puts "This day: " + days[t.wday]
 
-my_hour = "10"
-my_weekday = "Monday"
+my_hour = t.hour.to_s
+my_weekday = days[t.wday]
 
 json = JSON.parse(File.open('./script/parkingProbabilityQueries.json').read)
 
